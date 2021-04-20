@@ -42,7 +42,7 @@
                               </div>
 
                              <a href="/{{ product.id }}" class="btn btn-warning">View</a>
-                              <a class="btn btn-warning">Add to cart</a>
+                              <button class="btn atc btn-warning">Add to cart</button>
                          </div>
                     </div>
                </div>
@@ -74,6 +74,12 @@
    if(localStorage.getItem('cart')==null){
        var cart = {};
    }
+   else{
+       cart = JSON.parse(localStorage.getItem('cart'));
+   }
+   $(document).on('click','.atc', function () {
+       console.log("The add to cart button is clicked");
+   });
 </script>
 </html>
 
