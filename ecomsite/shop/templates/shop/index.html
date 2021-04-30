@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{% static 'shop/style.css' %}">
      <title>Document</title>
 </head>
-<body>
+<body onloadstart="doStuff()">
      <div class="container">
          <div class="row">
              <div class="col-md-12">
@@ -57,7 +57,7 @@
                     <div class="card">
                          <img src="{{ product.image }}" class="card-img-top">
                          <div class="card-body">
-                              <div class="card-title">
+                              <div id="b{{ product.id }}" class="card-title">
                                   {{ product.title }}
                               </div>
                               <div class="card-text">
@@ -91,9 +91,12 @@
                  </div>
             </div>-->
      </div>
+
 </body>
 <script type="text/javascript">
-    //console.log("Hi there it is working");
+   // window.onload = doStuff;
+    function doStuff() {
+           //console.log("Hi there it is working");
    if(localStorage.getItem('cart')==null){
        var cart = {};
    }
@@ -116,11 +119,21 @@
      document.getElementById("cart").innerHTML = "Cart(" +  Object.keys(cart).length + ")";
 
    });
-   $(function () {
-  $('[data-toggle="popover"]').popover()
-       document.getElementById("cart").setAttribute('data-content','<h5>This is your cart</h5>')
-})
 
+DisplayCart(cart);
+function DisplayCart(cart) {
+    var carString = "";
+    carString += "<h5>This is your cart</h5>";
+       var cartIndex = 1;
+       for (var x in cart){
+            carString+=cartIndex;
+            carString += document.getElementById("b"+x).innerHTML + "Qty: " + cart[x]
+            cartIndex+=1;
+       }
+       document.getElementById("cart").setAttribute('data-content', carString);
+      $('[data-toggle="popover"]').popover();
+}
+    }
 
 </script>
 </html>
